@@ -6,6 +6,7 @@ import {
   Button,
   Link,
   IconButton,
+  Box,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
@@ -20,6 +21,9 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     flexDirection: "column",
     minHeight: "60vh",
+  },
+  box: {
+    padding: "50px",
   },
   textField: {
     marginBottom: "20px",
@@ -64,7 +68,7 @@ const Auth: React.FC = () => {
   return (
     <form action="">
       <Grid container className={classes.grid}>
-        <Grid xs={6}>
+        <Box boxShadow={3} borderRadius="borderRadius" className={classes.box}>
           <Typography
             variant="h4"
             component="h5"
@@ -115,7 +119,7 @@ const Auth: React.FC = () => {
               Регистрация
             </Link>
           </div>
-        </Grid>
+        </Box>
       </Grid>
     </form>
   );
