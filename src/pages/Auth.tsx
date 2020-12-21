@@ -4,13 +4,13 @@ import {
   Grid,
   Typography,
   Button,
-  Link,
   IconButton,
   Box,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   typography: {
@@ -115,7 +115,7 @@ const Auth: React.FC = () => {
             >
               Войти
             </Button>
-            <Link href="#" className={classes.link}>
+            <Link to="/Registry" className={classes.link}>
               Регистрация
             </Link>
           </div>
