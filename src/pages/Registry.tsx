@@ -48,6 +48,7 @@ const useStyles = makeStyles(() => ({
     paddingRight: "30px",
     paddingLeft: "30px",
     textTransform: "none",
+    width: "100%",
   },
   icon: {
     position: "absolute",
@@ -64,7 +65,12 @@ const Registry: React.FC = () => {
   return (
     <form action="">
       <Grid container className={classes.grid}>
-        <Box boxShadow={3} borderRadius="borderRadius" className={classes.box}>
+        <Box
+          boxShadow={3}
+          width="25%"
+          borderRadius="borderRadius"
+          className={classes.box}
+        >
           <Typography
             variant="h4"
             component="h5"
