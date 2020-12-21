@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Auth from "./pages/Auth";
+import Registry from "./pages/Registry";
 
-ReactDOM.render(<Auth />, document.getElementById("root"));
+ReactDOM.render(<Registry />, document.getElementById("root"));
