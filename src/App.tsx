@@ -1,14 +1,13 @@
 import React from "react";
-import Auth from "./pages/Auth";
-import Registry from "./pages/Registry";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import useRoutes from "./routes";
 
 const App: React.FC = () => {
+  const routes = useRoutes(false);
+
   return (
     <Router>
-      <Route path="/auth" component={Auth} />
-      <Route path="/registry" component={Registry} />
-      <Redirect from="/" to="/auth" />
+      <div>{routes}</div>
     </Router>
   );
 };
