@@ -2,8 +2,8 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Portfolio from "./pages/Portfolio";
 import Expenses from "./pages/Expenses";
-import Auth from "./pages/Auth";
-import Registry from "./pages/Registry";
+import Auth from "./pages/Auth/Auth";
+import Registry from "./pages/Registry/Registry";
 
 const useRoutes = (isAuthenticated: Boolean) => {
   if (isAuthenticated) {

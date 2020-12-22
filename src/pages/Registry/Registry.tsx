@@ -4,63 +4,16 @@ import {
   Button,
   Grid,
   IconButton,
-  makeStyles,
   TextField,
   Typography,
 } from "@material-ui/core";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-
-const useStyles = makeStyles(() => ({
-  typography: {
-    marginBottom: "10px",
-  },
-  grid: {
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-    minHeight: "75vh",
-  },
-  box: {
-    padding: "50px",
-  },
-  textField: {
-    marginBottom: "20px",
-  },
-  emailInput: {
-    fontSize: "22px",
-  },
-  passwordInput: {
-    fontSize: "22px",
-    paddingRight: "44px",
-  },
-  passwordDiv: {
-    display: "flex",
-    position: "relative",
-  },
-  buttonsDiv: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  button: {
-    fontSize: "20px",
-    paddingRight: "30px",
-    paddingLeft: "30px",
-    textTransform: "none",
-    width: "100%",
-  },
-  icon: {
-    position: "absolute",
-    right: 0,
-    top: "10px",
-    padding: "10px",
-  },
-}));
+import useRegistryStyles from "./theme";
 
 const Registry: React.FC = () => {
   const [visiblePassword, setVisiblePassword] = useState(false);
-  const classes = useStyles();
+  const classes = useRegistryStyles();
 
   return (
     <form action="">
