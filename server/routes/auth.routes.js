@@ -1,16 +1,11 @@
-import Router from "express";
-import { check, validationResult } from "express-validator";
+const Router = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { check, validationResult } = require("express-validator");
 const User = require("../models/User");
 
 const router = Router();
 const jwtSecret = "DomininSecretString";
-
-interface Login {
-  email: string;
-  password: string;
-}
 
 router.post(
   "/register",
@@ -18,7 +13,7 @@ router.post(
     check("email", "wrong email").isEmail(),
     check("password", "min length 6").isLength({ min: 6 }),
   ],
-  async (req: any, res: any) => {
+  async (req, res) => {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -27,7 +22,7 @@ router.post(
           .json({ errors: errors.array(), message: "wrong register data" });
       }
 
-      const { email, password }: Login = req.body;
+      const { email, password } = req.body;
       const candidate = await User.findOne({ email });
 
       if (candidate) {
@@ -51,7 +46,7 @@ router.post(
     check("email", "Enter correct email").normalizeEmail().isEmail(),
     check("password", "Enter password").exists(),
   ],
-  async (req: any, res: any) => {
+  async (req, res) => {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -60,7 +55,7 @@ router.post(
           .json({ errors: errors.array(), message: "wrong auth data" });
       }
 
-      const { email, password }: Login = req.body;
+      const { email, password } = req.body;
       const user = await User.findOne({ email });
 
       if (!user) {

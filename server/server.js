@@ -1,5 +1,5 @@
-import express from "express";
-import mongoose from "mongoose";
+const express = require("express");
+const mongoose = require("mongoose");
 
 const PORT = 5000;
 const mongoUrl =
@@ -17,7 +17,7 @@ const start = async () => {
       useCreateIndex: true,
     });
 
-    app.listen(PORT, (): void =>
+    app.listen(PORT, () =>
       console.log(`App has been started on port ${PORT}...`)
     );
   } catch (e) {
