@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -9,11 +9,47 @@ import {
 } from "@material-ui/core";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import useRegistryStyles from "./theme";
+import { useHttp } from "../../hooks/useHttp";
+import useAuthStyles from "../Auth/theme";
+
+interface IUser {
+  email: string;
+  password: string;
+}
 
 const Registry: React.FC = () => {
+  const classes = useAuthStyles();
   const [visiblePassword, setVisiblePassword] = useState(false);
-  const classes = useRegistryStyles();
+  const [form, setForm] = useState<IUser>({ email: "", password: "" });
+  const [fieldError, setFieldError] = useState<IUser>({
+    email: "",
+    password: "",
+  });
+  const { request, error } = useHttp();
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      const newErrorFields = error?.reduce((prev: any, curr: any) => {
+        prev[curr.param] = curr.msg;
+        return prev;
+      }, {});
+      setFieldError(newErrorFields);
+    }
+  }, [error]);
+
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setFieldError({ ...fieldError, [e.target.name]: "" });
+  };
+
+  const registerHandler = async () => {
+    try {
+      await request("POST", "/api/auth/register", { ...form });
+    } catch (e) {}
+  };
 
   return (
     <form action="">
@@ -41,7 +77,6 @@ const Registry: React.FC = () => {
             }}
             fullWidth={true}
             type="text"
-            autoFocus={true}
           />
           <TextField
             label="Имя"
@@ -62,6 +97,10 @@ const Registry: React.FC = () => {
                 input: classes.emailInput,
               },
             }}
+            helperText={fieldError.email ? fieldError.email : ""}
+            error={!!fieldError.email}
+            onChange={changeHandler}
+            name="email"
             fullWidth={true}
             type="email"
           />
@@ -74,6 +113,10 @@ const Registry: React.FC = () => {
                   input: classes.passwordInput,
                 },
               }}
+              helperText={fieldError.password ? fieldError.password : ""}
+              error={!!fieldError.password}
+              onChange={changeHandler}
+              name="password"
               fullWidth={true}
               type={visiblePassword ? "text" : "password"}
             />
@@ -89,6 +132,7 @@ const Registry: React.FC = () => {
               variant="contained"
               className={classes.button}
               color="primary"
+              onClick={registerHandler}
             >
               Зарегистрироваться
             </Button>

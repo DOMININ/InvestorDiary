@@ -10,8 +10,8 @@ const jwtSecret = "DomininSecretString";
 router.post(
   "/register",
   [
-    check("email", "wrong email").isEmail(),
-    check("password", "min length 6").isLength({ min: 6 }),
+    check("email", "Неверный формат email").isEmail(),
+    check("password", "Минимальная длина 6 символов").isLength({ min: 6 }),
   ],
   async (req, res) => {
     try {
