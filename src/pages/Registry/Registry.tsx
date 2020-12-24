@@ -10,7 +10,8 @@ import {
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import { useHttp } from "../../hooks/useHttp";
-import useAuthStyles from "../Auth/theme";
+import useRegistryStyles from "../Registry/theme";
+import { useHistory } from "react-router-dom";
 
 interface IUser {
   email: string;
@@ -18,25 +19,29 @@ interface IUser {
 }
 
 const Registry: React.FC = () => {
-  const classes = useAuthStyles();
+  const classes = useRegistryStyles();
+  console.log(classes);
   const [visiblePassword, setVisiblePassword] = useState(false);
   const [form, setForm] = useState<IUser>({ email: "", password: "" });
   const [fieldError, setFieldError] = useState<IUser>({
     email: "",
     password: "",
   });
-  const { request, error } = useHttp();
+  const { request, error, loading } = useHttp();
   const isInitialMount = useRef(true);
+  const history = useHistory();
 
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else {
-      const newErrorFields = error?.reduce((prev: any, curr: any) => {
-        prev[curr.param] = curr.msg;
-        return prev;
-      }, {});
-      setFieldError(newErrorFields);
+      if (error) {
+        const newErrorFields = error?.reduce((prev: any, curr: any) => {
+          prev[curr.param] = curr.msg;
+          return prev;
+        }, {});
+        setFieldError(newErrorFields);
+      }
     }
   }, [error]);
 
@@ -47,9 +52,16 @@ const Registry: React.FC = () => {
 
   const registerHandler = async () => {
     try {
-      await request("POST", "/api/auth/register", { ...form });
+      const response = await request("POST", "/api/auth/register", { ...form });
+      if (response.status === 201) {
+        //TODO: тут добавить попап об успешной регистрации
+        alert("Пользователь создан");
+        history.push("/auth");
+      }
     } catch (e) {}
   };
+
+  const { email, password } = fieldError;
 
   return (
     <form action="">
@@ -97,8 +109,8 @@ const Registry: React.FC = () => {
                 input: classes.emailInput,
               },
             }}
-            helperText={fieldError.email ? fieldError.email : ""}
-            error={!!fieldError.email}
+            helperText={email ? email : ""}
+            error={!!email}
             onChange={changeHandler}
             name="email"
             fullWidth={true}
@@ -113,8 +125,8 @@ const Registry: React.FC = () => {
                   input: classes.passwordInput,
                 },
               }}
-              helperText={fieldError.password ? fieldError.password : ""}
-              error={!!fieldError.password}
+              helperText={password ? password : ""}
+              error={!!password}
               onChange={changeHandler}
               name="password"
               fullWidth={true}
@@ -132,7 +144,9 @@ const Registry: React.FC = () => {
               variant="contained"
               className={classes.button}
               color="primary"
+              fullWidth={true}
               onClick={registerHandler}
+              disabled={loading?.valueOf()}
             >
               Зарегистрироваться
             </Button>

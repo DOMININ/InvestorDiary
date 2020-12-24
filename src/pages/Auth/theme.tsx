@@ -8,10 +8,11 @@ const useAuthStyles = makeStyles(() => ({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
-    minHeight: "60vh",
+    marginTop: "35px",
   },
   box: {
     padding: "50px",
+    width: "27%",
   },
   textField: {
     marginBottom: "20px",

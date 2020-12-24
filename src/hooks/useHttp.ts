@@ -1,32 +1,34 @@
-import { useCallback, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import axios, { AxiosResponse } from "axios";
 
 export const useHttp = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [error, setError] = useState<null | []>(null);
 
-  const request = useCallback(
-    async (
-      method: "GET" | "POST" = "GET",
-      url: string,
-      data: null | object = null
-    ) => {
-      setLoading(true);
+  const request = async (
+    method: "GET" | "POST" = "GET",
+    url: string,
+    data: null | object = null
+  ) => {
+    setLoading(true);
 
-      await axios({
-        method,
-        url,
-        data,
-      }).catch((error) => {
+    return await axios({
+      method,
+      url,
+      data,
+    })
+      .then((response: AxiosResponse<object>) => {
+        setLoading(false);
+        return response;
+      })
+      .catch((error) => {
         if (error.response) {
           setError(error.response.data.errors);
           setLoading(false);
+          return error.response;
         }
       });
-    },
-    []
-  );
+  };
 
-  const clearError = useCallback(() => setError(null), []);
-  return { loading, request, error, clearError };
+  return { loading, request, error };
 };

@@ -8,10 +8,11 @@ const useRegistryStyles = makeStyles(() => ({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
-    minHeight: "75vh",
+    marginTop: "35px",
   },
   box: {
     padding: "50px",
+    width: "27%",
   },
   textField: {
     marginBottom: "20px",
