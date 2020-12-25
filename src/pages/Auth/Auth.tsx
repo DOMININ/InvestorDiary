@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   TextField,
   Grid,
@@ -11,6 +11,8 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { Link } from "react-router-dom";
 import useAuthStyles from "./theme";
+import { useHttp } from "../../hooks/useHttp";
+import { AuthContext } from "../../context/AuthContext";
 
 interface IUser {
   email: string;
@@ -20,10 +22,19 @@ interface IUser {
 const Auth: React.FC = () => {
   const [visiblePassword, setVisiblePassword] = useState(false);
   const [form, setForm] = useState<IUser>({ email: "", password: "" });
+  const { request } = useHttp();
+  const auth = useContext(AuthContext);
   const classes = useAuthStyles();
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const loginHandler = async () => {
+    try {
+      const response = await request("POST", "/api/auth/login", { ...form });
+      auth.login(response.data.token, response.data.userId);
+    } catch (e) {}
   };
 
   return (
@@ -77,6 +88,7 @@ const Auth: React.FC = () => {
               variant="contained"
               className={classes.button}
               color="primary"
+              onClick={loginHandler}
             >
               Войти
             </Button>
