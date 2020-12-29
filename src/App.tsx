@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import useRoutes from "./routes";
 import { useAuth } from "./hooks/useAuth";
 import { AuthContext } from "./context/AuthContext";
-import Header from "./Components/header";
 
 const App: React.FC = () => {
   const { token, userId, login, logout } = useAuth();
@@ -16,14 +15,7 @@ const App: React.FC = () => {
       value={{ token, userId, login, logout, isAuthenticated }}
     >
       <Router>
-        {isAuthenticated ? (
-          <div>
-            <Header />
-            {routes}
-          </div>
-        ) : (
-          <div>{routes}</div>
-        )}
+        <div>{routes}</div>
       </Router>
     </AuthContext.Provider>
   );

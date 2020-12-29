@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Card, createMuiTheme, MuiThemeProvider } from "@material-ui/core";
+import Header from "../Components/Header/header";
 
 const Portfolio: React.FC = () => {
   const [isDarkTheme, setIsDarkTheme] = useState<Boolean>(false);
@@ -38,15 +39,11 @@ const Portfolio: React.FC = () => {
     );
   };
 
-  const logoutHandler = () => {
-    auth.logout();
-  };
-
   return (
     <MuiThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <Header title={"Портфолио"} />
       <Card>
         <button onClick={setThemeHandler}>Сменить тему</button>
-        <button onClick={logoutHandler}>Выйти</button>
       </Card>
     </MuiThemeProvider>
   );
