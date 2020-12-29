@@ -16,6 +16,12 @@ export const useAuth = () => {
     );
   }, []);
 
+  const logout = useCallback(() => {
+    setToken("");
+    setUserId("");
+    localStorage.removeItem(storageName);
+  }, []);
+
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(storageName) || "{}");
 
@@ -24,5 +30,5 @@ export const useAuth = () => {
     }
   }, [login]);
 
-  return { login, token, userId };
+  return { login, logout, token, userId };
 };
