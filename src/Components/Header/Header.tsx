@@ -10,16 +10,16 @@ import {
 import { AccountCircle } from "@material-ui/icons";
 import { AuthContext } from "../../context/AuthContext";
 import useHeaderStyles from "./theme";
+import { Link, useLocation } from "react-router-dom";
 
-interface Props {
-  title: string;
-}
-
-const Header: React.FC<Props> = ({ title }) => {
+const Header: React.FC = () => {
   const classes = useHeaderStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const auth = useContext(AuthContext);
+
+  const location = useLocation();
+  const pathName = location.pathname.slice(1);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -38,7 +38,7 @@ const Header: React.FC<Props> = ({ title }) => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            {title}
+            {pathName === "portfolio" ? "Портфолио" : "Настройки"}
           </Typography>
           <div>
             <IconButton
@@ -67,7 +67,11 @@ const Header: React.FC<Props> = ({ title }) => {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem>Настройки</MenuItem>
+              <MenuItem>
+                <Link to="/settings" className={classes.link}>
+                  Настройки
+                </Link>
+              </MenuItem>
               <MenuItem onClick={logoutHandler}>Выйти</MenuItem>
             </Menu>
           </div>

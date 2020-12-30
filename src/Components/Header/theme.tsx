@@ -18,6 +18,10 @@ const useHeaderStyles = makeStyles((theme: Theme) =>
       lineHeight: 1.6,
       letterSpacing: "0.0075em",
     },
+    link: {
+      textDecoration: "none",
+      color: "inherit",
+    },
   })
 );
 

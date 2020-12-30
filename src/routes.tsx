@@ -4,6 +4,7 @@ import Portfolio from "./pages/Portfolio";
 import Expenses from "./pages/Expenses";
 import Auth from "./pages/Auth/Auth";
 import Registry from "./pages/Registry/Registry";
+import Settings from "./pages/Settings";
 
 const useRoutes = (isAuthenticated: Boolean) => {
   if (isAuthenticated) {
@@ -11,6 +12,7 @@ const useRoutes = (isAuthenticated: Boolean) => {
       <Switch>
         <Route path="/portfolio" component={Portfolio} />
         <Route path="/expenses" component={Expenses} />
+        <Route path="/settings" component={Settings} />
         <Redirect to="/portfolio" />
       </Switch>
     );
