@@ -1,10 +1,12 @@
 import { createContext } from "react";
 
-const noop = (token: string, userId: string) => {};
+const noopArg = (token: string, userId: string) => {};
+const noop = () => {};
 
 export const AuthContext = createContext({
   token: "",
   userId: "",
-  login: noop,
+  login: noopArg,
+  logout: noop,
   isAuthenticated: false,
 });
