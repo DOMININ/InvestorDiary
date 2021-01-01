@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import useRoutes from "./routes";
 import { useAuth } from "./hooks/useAuth";
 import { AuthContext } from "./context/AuthContext";
 import Header from "./Components/Header/Header";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./redux/reducers";
+import { switchTheme } from "./redux/actions";
 
 const App: React.FC = () => {
   const { token, userId, login, logout } = useAuth();
   const isAuthenticated = !!token;
   const routes = useRoutes(isAuthenticated);
+  const darkThemeObj = useSelector((state: RootState) => state.isDarkTheme);
+  const { isDarkTheme } = darkThemeObj;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem(`theme${userId}`) || `false`);
+
+    if (data) {
+      dispatch(switchTheme(data.value));
+    }
+  }, [userId, dispatch]);
 
   const darkTheme = createMuiTheme({
     palette: {
@@ -31,8 +45,7 @@ const App: React.FC = () => {
     >
       <Router>
         {isAuthenticated ? (
-          //TODO: true заменить на редакс
-          <MuiThemeProvider theme={true ? darkTheme : lightTheme}>
+          <MuiThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
             <div>
               <Header />
               {routes}
