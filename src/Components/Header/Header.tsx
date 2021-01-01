@@ -40,6 +40,9 @@ const Header: React.FC = () => {
           <Typography variant="h6" className={classes.title}>
             {pathName === "portfolio" ? "Портфолио" : "Настройки"}
           </Typography>
+          {/*TODO: сделать нормально*/}
+          <Link to="/portfolio">Портфолио</Link>
+          <Link to="/expenses">Расходы</Link>
           <div>
             <IconButton
               aria-label="account of current user"
@@ -67,7 +70,7 @@ const Header: React.FC = () => {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem>
+              <MenuItem onClick={handleClose}>
                 <Link to="/settings" className={classes.link}>
                   Настройки
                 </Link>

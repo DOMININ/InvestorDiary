@@ -4,7 +4,7 @@ import Portfolio from "./pages/Portfolio";
 import Expenses from "./pages/Expenses";
 import Auth from "./pages/Auth/Auth";
 import Registry from "./pages/Registry/Registry";
-import Settings from "./pages/Settings";
+import Settings from "./pages/Settings/Settings";
 
 const useRoutes = (isAuthenticated: Boolean) => {
   if (isAuthenticated) {
