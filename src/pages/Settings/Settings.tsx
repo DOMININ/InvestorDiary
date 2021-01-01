@@ -9,7 +9,7 @@ const Settings: React.FC = () => {
   const data = JSON.parse(
     localStorage.getItem(`theme${auth.userId}`) || `false`
   );
-  const [isDarkTheme, setIsDarkTheme] = useState(data.value);
+  const [isDarkTheme, setIsDarkTheme] = useState(data ? data.value : false);
   const dispatch = useDispatch();
 
   const setThemeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
