@@ -1,21 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React from "react";
 import { Card } from "@material-ui/core";
 
 const Portfolio: React.FC = () => {
-  const [isDarkTheme, setIsDarkTheme] = useState<Boolean>(false);
-  const auth = useContext(AuthContext);
-
-  useEffect(() => {
-    const data = JSON.parse(
-      localStorage.getItem(`theme${auth.userId}`) || `${isDarkTheme}`
-    );
-
-    if (data) {
-      setIsDarkTheme(data.value);
-    }
-  }, [isDarkTheme, auth.userId]);
-
   return (
     <Card>
       <div>
