@@ -1,24 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Card, createMuiTheme, MuiThemeProvider } from "@material-ui/core";
+import { Card } from "@material-ui/core";
 
 const Portfolio: React.FC = () => {
   const [isDarkTheme, setIsDarkTheme] = useState<Boolean>(false);
   const auth = useContext(AuthContext);
-
-  const darkTheme = createMuiTheme({
-    palette: {
-      type: "dark",
-    },
-  });
-
-  const lightTheme = createMuiTheme({
-    palette: {
-      background: {
-        paper: "#e2e2e2",
-      },
-    },
-  });
 
   useEffect(() => {
     const data = JSON.parse(
@@ -30,20 +16,27 @@ const Portfolio: React.FC = () => {
     }
   }, [isDarkTheme, auth.userId]);
 
-  const setThemeHandler = () => {
-    setIsDarkTheme(!isDarkTheme);
-    localStorage.setItem(
-      `theme${auth.userId}`,
-      JSON.stringify({ value: !isDarkTheme })
-    );
-  };
-
   return (
-    <MuiThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-      <Card>
-        <button onClick={setThemeHandler}>Сменить тему</button>
-      </Card>
-    </MuiThemeProvider>
+    <Card>
+      <div>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium
+        aliquid blanditiis, distinctio dolore ducimus, esse eum hic illum
+        inventore necessitatibus omnis porro quae quibusdam quo ratione
+        reprehenderit soluta temporibus.
+      </div>
+      <div>
+        Amet aperiam assumenda blanditiis commodi cum cupiditate deserunt dolor
+        dolore doloribus eaque expedita illo labore libero molestiae natus nisi
+        officia, optio pariatur, porro quam quis quisquam quo similique
+        temporibus voluptatibus!
+      </div>
+      <div>
+        A ad animi consequuntur cumque dolor dolorum eaque eligendi enim ex
+        facere fugiat fugit illum inventore laboriosam, laudantium magnam minus
+        nesciunt omnis pariatur quod ratione soluta temporibus, ullam vel
+        veritatis!
+      </div>
+    </Card>
   );
 };
 
