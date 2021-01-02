@@ -4,3 +4,9 @@ export const switchTheme = (bool: boolean) => {
     payload: bool,
   };
 };
+
+export const clearThemeStore = () => {
+  return {
+    type: "CLEAR",
+  };
+};

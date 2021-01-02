@@ -11,12 +11,15 @@ import { AccountCircle } from "@material-ui/icons";
 import { AuthContext } from "../../context/AuthContext";
 import useHeaderStyles from "./theme";
 import { Link, useLocation } from "react-router-dom";
+import { clearThemeStore } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 
 const Header: React.FC = () => {
   const classes = useHeaderStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const auth = useContext(AuthContext);
+  const dispatch = useDispatch();
 
   const location = useLocation();
   const pathName = location.pathname.slice(1);
@@ -31,6 +34,7 @@ const Header: React.FC = () => {
 
   const logoutHandler = () => {
     auth.logout();
+    dispatch(clearThemeStore());
   };
 
   return (
