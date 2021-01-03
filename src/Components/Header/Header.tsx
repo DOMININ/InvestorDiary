@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   const auth = useContext(AuthContext);
   const dispatch = useDispatch();
 
-  const { name, surname } = auth.username;
+  const { name = "Имя", surname = "Фамилия" } = auth.username;
 
   const changeUsernameFormat = (name: string, surname: string) => {
     name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
