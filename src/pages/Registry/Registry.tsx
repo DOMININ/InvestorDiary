@@ -146,7 +146,7 @@ const Registry: React.FC = () => {
                   color="primary"
                   fullWidth={true}
                   onClick={registerHandler}
-                  disabled={loading?.valueOf()}
+                  disabled={loading?.valueOf() || !form.email || !form.password}
                 >
                   Зарегистрироваться
                 </Button>

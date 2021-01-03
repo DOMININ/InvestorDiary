@@ -112,6 +112,7 @@ const Auth: React.FC = () => {
               className={classes.button}
               color="primary"
               onClick={loginHandler}
+              disabled={!form.email || !form.password}
             >
               Войти
             </Button>
