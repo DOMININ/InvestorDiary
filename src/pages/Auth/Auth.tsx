@@ -53,7 +53,12 @@ const Auth: React.FC = () => {
   const loginHandler = async () => {
     try {
       const response = await request("POST", "/api/auth/login", { ...form });
-      auth.login(response.data.token, response.data.userId);
+      auth.login(
+        response.data.token,
+        response.data.userId,
+        response.data.userName,
+        response.data.userSurname
+      );
     } catch (e) {}
   };
 

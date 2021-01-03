@@ -10,7 +10,7 @@ import { RootState } from "./redux/reducers";
 import { switchTheme } from "./redux/actions";
 
 const App: React.FC = () => {
-  const { token, userId, login, logout } = useAuth();
+  const { token, userId, login, logout, username } = useAuth();
   const isAuthenticated = !!token;
   const routes = useRoutes(isAuthenticated);
   const darkThemeObj = useSelector((state: RootState) => state.isDarkTheme);
@@ -41,7 +41,7 @@ const App: React.FC = () => {
 
   return (
     <AuthContext.Provider
-      value={{ token, userId, login, logout, isAuthenticated }}
+      value={{ token, userId, login, logout, username, isAuthenticated }}
     >
       <Router>
         {isAuthenticated ? (
