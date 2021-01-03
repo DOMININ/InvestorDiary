@@ -44,7 +44,7 @@ router.post(
   "/login",
   [
     check("email", "Неверный формат почты").isEmail(),
-    check("password", "Введите пароль").exists(),
+    check("password", "Введите пароль").not().isEmpty(),
   ],
   async (req, res) => {
     try {
@@ -59,13 +59,19 @@ router.post(
       const user = await User.findOne({ email });
 
       if (!user) {
-        return res.status(500).json({ message: "user not found" });
+        return res.status(500).json({
+          errors: [{ msg: "Неверный логин", param: "email" }],
+          message: "Неверный логин",
+        });
       }
 
       const isMatchPass = await bcrypt.compare(password, user.password);
 
       if (!isMatchPass) {
-        return res.status(400).json({ message: "wrong password, try again" });
+        return res.status(400).json({
+          errors: [{ msg: "Неверный пароль", param: "password" }],
+          message: "Неверный пароль",
+        });
       }
 
       const token = jwt.sign({ userId: user.id }, jwtSecret, {
