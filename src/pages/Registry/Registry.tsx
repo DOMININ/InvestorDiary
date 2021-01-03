@@ -18,17 +18,26 @@ const classNames = require("classnames");
 interface IUser {
   email: string;
   password: string;
+  name: string;
+  surname: string;
 }
 
 const Registry: React.FC = () => {
   const classes = useRegistryStyles();
   const [visiblePassword, setVisiblePassword] = useState(false);
-  const [form, setForm] = useState<IUser>({ email: "", password: "" });
+  const [form, setForm] = useState<IUser>({
+    email: "",
+    password: "",
+    name: "",
+    surname: "",
+  });
   const [fieldError, setFieldError] = useState<IUser>({
     email: "",
     password: "",
+    name: "",
+    surname: "",
   });
-  const { email, password } = fieldError;
+  const { email, password, name, surname } = fieldError;
   const { request, error, loading } = useHttp();
   const [isRegistered, setIsRegistered] = useState(false);
   const isInitialMount = useRef(true);
@@ -87,6 +96,10 @@ const Registry: React.FC = () => {
                     input: classes.emailInput,
                   },
                 }}
+                helperText={surname ? surname : ""}
+                error={!!surname}
+                onChange={changeHandler}
+                name="surname"
                 fullWidth={true}
                 type="text"
               />
@@ -98,6 +111,10 @@ const Registry: React.FC = () => {
                     input: classes.emailInput,
                   },
                 }}
+                helperText={name ? name : ""}
+                error={!!name}
+                onChange={changeHandler}
+                name="name"
                 fullWidth={true}
                 type="text"
               />

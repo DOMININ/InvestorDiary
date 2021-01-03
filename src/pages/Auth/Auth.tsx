@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   TextField,
   Grid,
@@ -22,9 +22,29 @@ interface IUser {
 const Auth: React.FC = () => {
   const [visiblePassword, setVisiblePassword] = useState(false);
   const [form, setForm] = useState<IUser>({ email: "", password: "" });
-  const { request } = useHttp();
+  const [fieldError, setFieldError] = useState<IUser>({
+    email: "",
+    password: "",
+  });
+  const { email, password } = fieldError;
+  const { request, error } = useHttp();
   const auth = useContext(AuthContext);
   const classes = useAuthStyles();
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      if (error) {
+        const newErrorFields = error?.reduce((prev: any, curr: any) => {
+          prev[curr.param] = curr.msg;
+          return prev;
+        }, {});
+        setFieldError(newErrorFields);
+      }
+    }
+  }, [error]);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -33,7 +53,12 @@ const Auth: React.FC = () => {
   const loginHandler = async () => {
     try {
       const response = await request("POST", "/api/auth/login", { ...form });
-      auth.login(response.data.token, response.data.userId);
+      auth.login(
+        response.data.token,
+        response.data.userId,
+        response.data.userName,
+        response.data.userSurname
+      );
     } catch (e) {}
   };
 
@@ -57,10 +82,11 @@ const Auth: React.FC = () => {
                 input: classes.emailInput,
               },
             }}
+            helperText={email ? email : ""}
+            error={!!email}
             onChange={changeHandler}
             fullWidth={true}
             type="email"
-            autoFocus={true}
           />
           <div className={classes.passwordDiv}>
             <TextField
@@ -72,6 +98,8 @@ const Auth: React.FC = () => {
                   input: classes.passwordInput,
                 },
               }}
+              helperText={password ? password : ""}
+              error={!!password}
               onChange={changeHandler}
               fullWidth={true}
               type={visiblePassword ? "text" : "password"}
@@ -89,6 +117,7 @@ const Auth: React.FC = () => {
               className={classes.button}
               color="primary"
               onClick={loginHandler}
+              disabled={!form.email || !form.password}
             >
               Войти
             </Button>

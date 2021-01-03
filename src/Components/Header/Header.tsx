@@ -21,6 +21,16 @@ const Header: React.FC = () => {
   const auth = useContext(AuthContext);
   const dispatch = useDispatch();
 
+  const { name, surname } = auth.username;
+
+  const changeUsernameFormat = (name: string, surname: string) => {
+    name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    surname = surname.charAt(0).toUpperCase();
+    return `${name} ${surname}.`;
+  };
+
+  const formattedUsername = changeUsernameFormat(name, surname);
+
   const location = useLocation();
   const pathName = location.pathname.slice(1);
 
@@ -57,7 +67,7 @@ const Header: React.FC = () => {
               className={classes.menuProfile}
             >
               <AccountCircle />
-              Дмитрий Д.
+              {formattedUsername}
             </IconButton>
             <Menu
               id="menu-appbar"
