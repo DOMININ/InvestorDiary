@@ -3,11 +3,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 import useRoutes from "./routes";
 import { useAuth } from "./hooks/useAuth";
 import { AuthContext } from "./context/AuthContext";
-import Header from "./Components/Header/Header";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/reducers";
 import { switchTheme } from "./redux/actions";
+import HeaderAside from "./Components/Header/HeaderAside";
 
 const App: React.FC = () => {
   const { token, userId, login, logout, username } = useAuth();
@@ -47,8 +47,7 @@ const App: React.FC = () => {
         {isAuthenticated ? (
           <MuiThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
             <div>
-              <Header />
-              {routes}
+              <HeaderAside>{routes}</HeaderAside>
             </div>
           </MuiThemeProvider>
         ) : (
