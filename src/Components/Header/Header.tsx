@@ -13,6 +13,7 @@ import useHeaderStyles from "./theme";
 import { Link, useLocation } from "react-router-dom";
 import { clearThemeStore } from "../../redux/actions";
 import { useDispatch } from "react-redux";
+import pageTitles from "../../pages/pageTitles";
 
 const Header: React.FC = () => {
   const classes = useHeaderStyles();
@@ -33,6 +34,9 @@ const Header: React.FC = () => {
 
   const location = useLocation();
   const pathName = location.pathname.slice(1);
+  const getPageTitle = (pathName: string) => {
+    return pageTitles[pathName];
+  };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -52,11 +56,10 @@ const Header: React.FC = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            {pathName === "portfolio" ? "Портфолио" : "Настройки"}
+            {getPageTitle(pathName)}
           </Typography>
           {/*TODO: сделать нормально*/}
           <Link to="/portfolio">Портфолио</Link>
-          <Link to="/expenses">Расходы</Link>
           <div>
             <IconButton
               aria-label="account of current user"
