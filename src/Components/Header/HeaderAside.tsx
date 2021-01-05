@@ -24,7 +24,6 @@ import { AuthContext } from "../../context/AuthContext";
 import { useDispatch } from "react-redux";
 import pageTitles from "./pageTitles";
 import useHeaderAsideStyles from "./theme";
-import asidePages from "./asidePages";
 
 interface IHeaderAsideProps {
   children: React.ReactNode;
@@ -161,21 +160,18 @@ const HeaderAside: React.FC<IHeaderAsideProps> = ({ children }) => {
         </div>
         <Divider />
         <List>
-          {asidePages.map((text: string, index: number) => (
-            <Link
-              to="/portfolio"
-              className={classes.link}
-              key={text + index}
-              onClick={handleDrawerClose}
-            >
-              <ListItem button>
-                <ListItemIcon>
-                  <BusinessCenterIcon />
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            </Link>
-          ))}
+          <Link
+            to="/portfolio"
+            className={classes.link}
+            onClick={handleDrawerClose}
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <BusinessCenterIcon />
+              </ListItemIcon>
+              <ListItemText primary="Портфолио" />
+            </ListItem>
+          </Link>
         </List>
         <Divider />
       </Drawer>
