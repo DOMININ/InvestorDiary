@@ -1,28 +1,20 @@
-import React from "react";
-import { Card } from "@material-ui/core";
+import React, { useState } from "react";
+import { useStocks } from "../hooks/useStocks";
 
 const Portfolio: React.FC = () => {
+  const [stocksName, setStocksName] = useState<string>("");
+  const { request } = useStocks();
+
+  const getData = async () => {
+    const response = await request("vtbe");
+    setStocksName(response);
+  };
+
   return (
-    <Card>
-      <div>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium
-        aliquid blanditiis, distinctio dolore ducimus, esse eum hic illum
-        inventore necessitatibus omnis porro quae quibusdam quo ratione
-        reprehenderit soluta temporibus.
-      </div>
-      <div>
-        Amet aperiam assumenda blanditiis commodi cum cupiditate deserunt dolor
-        dolore doloribus eaque expedita illo labore libero molestiae natus nisi
-        officia, optio pariatur, porro quam quis quisquam quo similique
-        temporibus voluptatibus!
-      </div>
-      <div>
-        A ad animi consequuntur cumque dolor dolorum eaque eligendi enim ex
-        facere fugiat fugit illum inventore laboriosam, laudantium magnam minus
-        nesciunt omnis pariatur quod ratione soluta temporibus, ullam vel
-        veritatis!
-      </div>
-    </Card>
+    <div>
+      <button onClick={getData}>Найти</button>
+      <h1>{stocksName}</h1>
+    </div>
   );
 };
 
