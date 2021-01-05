@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import useAuthStyles from "./theme";
 import { useHttp } from "../../hooks/useHttp";
 import { AuthContext } from "../../context/AuthContext";
+const classNames = require("classnames");
 
 interface IUser {
   email: string;
@@ -27,7 +28,7 @@ const Auth: React.FC = () => {
     password: "",
   });
   const { email, password } = fieldError;
-  const { request, error } = useHttp();
+  const { request, error, loading } = useHttp();
   const auth = useContext(AuthContext);
   const classes = useAuthStyles();
   const isInitialMount = useRef(true);
@@ -117,11 +118,16 @@ const Auth: React.FC = () => {
               className={classes.button}
               color="primary"
               onClick={loginHandler}
-              disabled={!form.email || !form.password}
+              disabled={!form.email || !form.password || loading?.valueOf()}
             >
               Войти
             </Button>
-            <Link to="/registry" className={classes.link}>
+            <Link
+              to="/registry"
+              className={classNames(classes.link, {
+                [classes.linkDisabled]: loading,
+              })}
+            >
               Регистрация
             </Link>
           </div>
