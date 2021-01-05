@@ -48,6 +48,12 @@ const useAuthStyles = makeStyles(() => ({
     top: "17px",
     padding: "6px",
   },
+  linkDisabled: {
+    pointerEvents: "none",
+    cursor: "default",
+    color: "#a6a6a6",
+    borderColor: "#e0e0e0",
+  },
 }));
 
 export default useAuthStyles;
