@@ -8,7 +8,8 @@ export const useHttp = () => {
   const request = async (
     method: "GET" | "POST" = "GET",
     url: string,
-    data: null | object = null
+    data: null | object = null,
+    headers: null | object = null
   ) => {
     setLoading(true);
 
@@ -16,6 +17,7 @@ export const useHttp = () => {
       method,
       url,
       data,
+      headers,
     })
       .then((response: AxiosResponse<object>) => {
         setLoading(false);

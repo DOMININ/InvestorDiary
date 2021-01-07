@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useStocks } from "../../hooks/useStocks";
+import React, { useContext, useEffect, useState } from "react";
+import { useGetStock } from "../../hooks/useGetStock";
 import {
   Button,
   Container,
@@ -14,6 +14,8 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import moment from "moment";
+import { useHttp } from "../../hooks/useHttp";
+import { AuthContext } from "../../context/AuthContext";
 
 const currencies = [
   {
@@ -62,7 +64,9 @@ const Portfolio: React.FC = () => {
   const [selectedDate, setSelectedDate] = React.useState<Date | null>(
     new Date()
   );
-  const { request } = useStocks();
+  const { requestStockAPI } = useGetStock();
+  const { request, loading } = useHttp();
+  const auth = useContext(AuthContext);
 
   const changeDateHandler = (date: Date | null) => {
     setSelectedDate(date);
@@ -77,7 +81,7 @@ const Portfolio: React.FC = () => {
   };
 
   const getStockName = async (ticker: string) => {
-    const response = await request(ticker);
+    const response = await requestStockAPI(ticker);
     setStockName(response);
   };
 
@@ -88,14 +92,27 @@ const Portfolio: React.FC = () => {
     });
   };
 
-  const stocksHandler = async () => {
+  const resetForm = () => {
     setIsOpenForm(false);
     setStockName("");
     setTicker("");
+    setCurrency("RUB");
     setSelectedDate(new Date());
     setForm(initialFormState);
+  };
 
-    console.log(form);
+  const sendStock = async () => {
+    try {
+      const data = await request(
+        "POST",
+        "api/stock/new",
+        { ...form },
+        { authorization: `Bearer ${auth.token}` }
+      );
+      console.log(data);
+    } catch (e) {}
+
+    resetForm();
   };
 
   useEffect(() => {
@@ -137,6 +154,14 @@ const Portfolio: React.FC = () => {
               disabled={!ticker}
             >
               Найти
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.buttonReset}
+              onClick={resetForm}
+            >
+              Отмена
             </Button>
           </div>
         )}
@@ -208,7 +233,7 @@ const Portfolio: React.FC = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={stocksHandler}
+              onClick={sendStock}
               className={classes.buttonSubmit}
               disabled={!form.qty || !form.price}
             >

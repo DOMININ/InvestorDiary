@@ -32,6 +32,9 @@ const usePortfolioStyles = makeStyles(() => ({
   buttonSubmit: {
     marginTop: 15,
   },
+  buttonReset: {
+    marginLeft: 10,
+  },
 }));
 
 export default usePortfolioStyles;

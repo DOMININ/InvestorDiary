@@ -1,11 +1,11 @@
 import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
 
-export const useStocks = () => {
+export const useGetStock = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [error, setError] = useState<null | []>(null);
 
-  const request = async (ticket: string) => {
+  const requestStockAPI = async (ticket: string) => {
     setLoading(true);
 
     return await axios
@@ -23,5 +23,5 @@ export const useStocks = () => {
       });
   };
 
-  return { loading, request, error };
+  return { loading, requestStockAPI, error };
 };
