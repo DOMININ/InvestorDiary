@@ -1,9 +1,10 @@
 import { makeStyles } from "@material-ui/core";
 
-const usePortfolioStyles = makeStyles(() => ({
+const useNewStockStyles = makeStyles(() => ({
   paper: {
     display: "flex",
     flexDirection: "column",
+    marginBottom: 30,
     paddingTop: 20,
     paddingBottom: 20,
   },
@@ -37,4 +38,4 @@ const usePortfolioStyles = makeStyles(() => ({
   },
 }));
 
-export default usePortfolioStyles;
+export default useNewStockStyles;

@@ -16,7 +16,7 @@ router.post("/new", auth, async (req, res) => {
 
 router.get("/", auth, async (req, res) => {
   try {
-    const stock = Stock.find({ owner: req.user.userId });
+    const stock = await Stock.find({ owner: req.user.userId });
 
     res.json(stock);
   } catch (e) {
