@@ -126,11 +126,9 @@ const HeaderAside: React.FC<IHeaderAsideProps> = ({ children }) => {
               open={openPopup}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>
-                <Link to="/settings" className={classes.link}>
-                  Настройки
-                </Link>
-              </MenuItem>
+              <Link to="/settings" className={classes.link}>
+                <MenuItem onClick={handleClose}>Настройки</MenuItem>
+              </Link>
               <MenuItem onClick={logoutHandler}>Выйти</MenuItem>
             </Menu>
           </div>

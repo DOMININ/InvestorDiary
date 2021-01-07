@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import Portfolio from "./pages/Portfolio";
+import Portfolio from "./pages/Portfolio/Portfolio";
 import Auth from "./pages/Auth/Auth";
 import Registry from "./pages/Registry/Registry";
 import Settings from "./pages/Settings/Settings";
