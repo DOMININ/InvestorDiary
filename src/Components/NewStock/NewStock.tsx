@@ -22,25 +22,13 @@ const currencies = [
     value: "RUB",
     label: "₽",
   },
-  {
-    value: "USD",
-    label: "$",
-  },
-  {
-    value: "EUR",
-    label: "€",
-  },
-  {
-    value: "JPY",
-    label: "¥",
-  },
 ];
 
 interface IStocks {
   ticker: string;
   name: string;
-  qty: string;
-  price: string;
+  qty: number | null;
+  price: number | null;
   currency: string;
   date: string;
 }
@@ -48,8 +36,8 @@ interface IStocks {
 const initialFormState: IStocks = {
   ticker: "",
   name: "",
-  qty: "",
-  price: "",
+  qty: null,
+  price: null,
   currency: "",
   date: "",
 };
@@ -88,7 +76,7 @@ const NewStock: React.FC = () => {
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [e.target.name]: +e.target.value,
     });
   };
 

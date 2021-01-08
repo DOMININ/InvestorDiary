@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-const useStocksListStyles = makeStyles(() => ({
+const useStockInfoStyles = makeStyles(() => ({
   paper: {
     marginBottom: 30,
     paddingTop: 20,
@@ -8,4 +8,4 @@ const useStocksListStyles = makeStyles(() => ({
   },
 }));
 
-export default useStocksListStyles;
+export default useStockInfoStyles;

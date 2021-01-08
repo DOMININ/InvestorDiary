@@ -12,7 +12,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
-import useStocksListStyles from "./theme";
+import useStocksListStyles from "../StockInfo/theme";
 
 const StocksList: React.FC = () => {
   const classes = useStocksListStyles();
@@ -38,9 +38,7 @@ const StocksList: React.FC = () => {
     <Paper className={classes.paper}>
       <TableContainer component={Container}>
         <Button variant="contained" color="primary" onClick={fetchStocks}>
-          {!isOpen || loading
-            ? "Показать историю покупок"
-            : "Скрыть историю покупок"}
+          {!isOpen || loading ? "Показать историю покупок" : "Скрыть"}
         </Button>
         {!loading && isOpen && (
           <Table aria-label="simple table">
