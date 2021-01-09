@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
-  Button,
   Container,
   Paper,
   Table,
@@ -16,12 +15,11 @@ import { AuthContext } from "../../context/AuthContext";
 
 const StockInfo: React.FC = () => {
   const classes = useStockInfoStyles();
-  const [isOpen, setIsOpen] = useState<Boolean>(false);
   const [stocks, setStocks] = useState<any[]>([]);
   const { request, loading } = useHttp();
   const { token } = useContext(AuthContext);
 
-  function containsObject(obj: any, list: any) {
+  const containsObject = (obj: any, list: any) => {
     for (let i = 0; i < list.length; i++) {
       if (JSON.stringify(list[i].ticker) === JSON.stringify(obj.ticker)) {
         return true;
@@ -29,9 +27,9 @@ const StockInfo: React.FC = () => {
     }
 
     return false;
-  }
+  };
 
-  function sumStocks(stocks: []) {
+  const sumStocks = useCallback((stocks: []) => {
     let iterObj: any;
     let arrObj: any[] = [];
     let newStocks = [...stocks];
@@ -69,35 +67,26 @@ const StockInfo: React.FC = () => {
       }
     }
     setStocks(arrObj);
-  }
+  }, []);
 
-  const fetchStocks = async () => {
-    setIsOpen(!isOpen);
+  const fetchStocks = useCallback(async () => {
+    try {
+      const fetched = await request("GET", "api/stock", null, {
+        authorization: `Bearer ${token}`,
+      });
 
-    if (!isOpen) {
-      try {
-        const fetched = await request("GET", "api/stock", null, {
-          authorization: `Bearer ${token}`,
-        });
+      sumStocks(fetched.data);
+    } catch (e) {}
+  }, [request, sumStocks, token]);
 
-        sumStocks(fetched.data);
-      } catch (e) {}
-    }
-  };
-
-  const showDetailInfo = () => {
+  useEffect(() => {
     fetchStocks();
-
-    console.log(stocks);
-  };
+  }, [fetchStocks]);
 
   return (
     <Paper className={classes.paper}>
       <TableContainer component={Container}>
-        <Button variant="contained" color="primary" onClick={showDetailInfo}>
-          {!isOpen || loading ? "Показать информацию об акциях" : "Скрыть"}
-        </Button>
-        {!loading && isOpen && (
+        {!loading && (
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>

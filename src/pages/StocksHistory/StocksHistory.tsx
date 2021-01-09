@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useHttp } from "../../hooks/useHttp";
 import { AuthContext } from "../../context/AuthContext";
 import {
-  Button,
   Container,
   Paper,
   Table,
@@ -14,33 +13,29 @@ import {
 } from "@material-ui/core";
 import useStocksListStyles from "../StockInfo/theme";
 
-const StocksList: React.FC = () => {
+const StocksHistory: React.FC = () => {
   const classes = useStocksListStyles();
-  const [isOpen, setIsOpen] = useState<Boolean>(false);
   const [stocks, setStocks] = useState<[]>([]);
   const { request, loading } = useHttp();
   const { token } = useContext(AuthContext);
 
-  const fetchStocks = async () => {
-    setIsOpen(!isOpen);
+  const fetchStocks = useCallback(async () => {
+    try {
+      const fetched = await request("GET", "api/stock", null, {
+        authorization: `Bearer ${token}`,
+      });
+      setStocks(fetched.data);
+    } catch (e) {}
+  }, [token, request]);
 
-    if (!isOpen) {
-      try {
-        const fetched = await request("GET", "api/stock", null, {
-          authorization: `Bearer ${token}`,
-        });
-        setStocks(fetched.data);
-      } catch (e) {}
-    }
-  };
+  useEffect(() => {
+    fetchStocks();
+  }, [fetchStocks]);
 
   return (
     <Paper className={classes.paper}>
       <TableContainer component={Container}>
-        <Button variant="contained" color="primary" onClick={fetchStocks}>
-          {!isOpen || loading ? "Показать историю покупок" : "Скрыть"}
-        </Button>
-        {!loading && isOpen && (
+        {!loading && stocks && (
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -73,4 +68,4 @@ const StocksList: React.FC = () => {
   );
 };
 
-export default StocksList;
+export default StocksHistory;

@@ -48,7 +48,6 @@ const NewStock: React.FC = () => {
   const [currency, setCurrency] = useState<string>("RUB");
   const [stockName, setStockName] = useState<string>("");
   const [form, setForm] = useState<IStocks>(initialFormState);
-  const [isOpenForm, setIsOpenForm] = useState<Boolean>(false);
   const [selectedDate, setSelectedDate] = React.useState<Date | null>(
     new Date()
   );
@@ -81,7 +80,6 @@ const NewStock: React.FC = () => {
   };
 
   const resetForm = () => {
-    setIsOpenForm(false);
     setStockName("");
     setTicker("");
     setCurrency("RUB");
@@ -115,43 +113,25 @@ const NewStock: React.FC = () => {
   return (
     <Paper elevation={3} className={classes.paper}>
       <Container>
-        {!isOpenForm ? (
+        <div>
+          <TextField
+            helperText="Введите тикер. Пример: VTBE"
+            variant="outlined"
+            size="small"
+            name="ticker"
+            onChange={changeTickerHandler}
+            className={classes.tickerField}
+            value={ticker}
+          />
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setIsOpenForm(true)}
+            onClick={() => getStockName(ticker)}
+            disabled={!ticker}
           >
-            Добавить новую акцию
+            Найти
           </Button>
-        ) : (
-          <div>
-            <TextField
-              helperText="Введите тикер. Пример: VTBE"
-              variant="outlined"
-              size="small"
-              name="ticker"
-              onChange={changeTickerHandler}
-              className={classes.tickerField}
-              value={ticker}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => getStockName(ticker)}
-              disabled={!ticker}
-            >
-              Найти
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.buttonReset}
-              onClick={resetForm}
-            >
-              Отмена
-            </Button>
-          </div>
-        )}
+        </div>
         {stockName && (
           <>
             <TextField
@@ -225,6 +205,14 @@ const NewStock: React.FC = () => {
               disabled={!form.qty || !form.price}
             >
               Добавить
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.buttonReset}
+              onClick={resetForm}
+            >
+              Отменить
             </Button>
           </>
         )}

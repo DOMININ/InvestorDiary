@@ -34,6 +34,7 @@ const useNewStockStyles = makeStyles(() => ({
     marginTop: 15,
   },
   buttonReset: {
+    marginTop: 15,
     marginLeft: 10,
   },
 }));
