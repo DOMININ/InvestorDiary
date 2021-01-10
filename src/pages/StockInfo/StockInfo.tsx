@@ -1,17 +1,16 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import {
-  Container,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@material-ui/core";
+import { Container, Paper, TableContainer } from "@material-ui/core";
 import useStockInfoStyles from "./theme";
 import { useHttp } from "../../hooks/useHttp";
 import { AuthContext } from "../../context/AuthContext";
+import StockTable from "../../Components/StockTable/StockTable";
+
+const tableTitles = [
+  "Тикер",
+  "Количество (всего)",
+  "Цена покупки (средняя)",
+  "Валюта",
+];
 
 const StockInfo: React.FC = () => {
   const classes = useStockInfoStyles();
@@ -35,6 +34,7 @@ const StockInfo: React.FC = () => {
     let newStocks = [...stocks];
 
     for (iterObj of newStocks) {
+      delete iterObj["date"];
       if (containsObject(iterObj, arrObj)) {
         for (let i = 0; i < arrObj.length; i++) {
           if (
@@ -86,32 +86,7 @@ const StockInfo: React.FC = () => {
   return (
     <Paper className={classes.paper}>
       <TableContainer component={Container}>
-        {!loading && (
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Название</TableCell>
-                <TableCell align="center">Тикер</TableCell>
-                <TableCell align="center">Количество (всего)</TableCell>
-                <TableCell align="center">Цена покупки (средняя)</TableCell>
-                <TableCell align="center">Валюта</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {stocks.map((row: any) => (
-                <TableRow key={row._id}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="center">{row.ticker}</TableCell>
-                  <TableCell align="center">{row.qty}</TableCell>
-                  <TableCell align="center">{row.price}</TableCell>
-                  <TableCell align="center">{row.currency}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        )}
+        {!loading && <StockTable head={tableTitles} stocks={stocks} />}
       </TableContainer>
     </Paper>
   );
