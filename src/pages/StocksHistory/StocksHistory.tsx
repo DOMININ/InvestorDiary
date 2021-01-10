@@ -15,7 +15,7 @@ const tableTitles = [
 
 const StocksHistory: React.FC = () => {
   const classes = useStocksListStyles();
-  const [stocks, setStocks] = useState<[]>([]);
+  const [stocks, setStocks] = useState<any[]>([]);
   const { request, loading } = useHttp();
   const { token } = useContext(AuthContext);
 
