@@ -15,7 +15,10 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import AddBoxIcon from "@material-ui/icons/AddBox";
+import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
+import ListAltIcon from "@material-ui/icons/ListAlt";
 import { AccountCircle } from "@material-ui/icons";
 import { Menu, MenuItem } from "@material-ui/core";
 import { Link, useLocation } from "react-router-dom";
@@ -126,11 +129,9 @@ const HeaderAside: React.FC<IHeaderAsideProps> = ({ children }) => {
               open={openPopup}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>
-                <Link to="/settings" className={classes.link}>
-                  Настройки
-                </Link>
-              </MenuItem>
+              <Link to="/settings" className={classes.link}>
+                <MenuItem onClick={handleClose}>Настройки</MenuItem>
+              </Link>
               <MenuItem onClick={logoutHandler}>Выйти</MenuItem>
             </Menu>
           </div>
@@ -160,6 +161,24 @@ const HeaderAside: React.FC<IHeaderAsideProps> = ({ children }) => {
         </div>
         <Divider />
         <List>
+          <Link to="/new" className={classes.link} onClick={handleDrawerClose}>
+            <ListItem button>
+              <ListItemIcon>
+                <AddBoxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Добавить" />
+            </ListItem>
+          </Link>
+          <Divider />
+          <Link to="/info" className={classes.link} onClick={handleDrawerClose}>
+            <ListItem button>
+              <ListItemIcon>
+                <LibraryBooksIcon />
+              </ListItemIcon>
+              <ListItemText primary="Акции" />
+            </ListItem>
+          </Link>
+          <Divider />
           <Link
             to="/portfolio"
             className={classes.link}
@@ -170,6 +189,19 @@ const HeaderAside: React.FC<IHeaderAsideProps> = ({ children }) => {
                 <BusinessCenterIcon />
               </ListItemIcon>
               <ListItemText primary="Портфолио" />
+            </ListItem>
+          </Link>
+          <Divider />
+          <Link
+            to="/history"
+            className={classes.link}
+            onClick={handleDrawerClose}
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <ListAltIcon />
+              </ListItemIcon>
+              <ListItemText primary="История" />
             </ListItem>
           </Link>
         </List>
