@@ -1,7 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useHttp } from "../../hooks/useHttp";
 import { AuthContext } from "../../context/AuthContext";
-import { Container, Paper, TableContainer } from "@material-ui/core";
+import {
+  Container,
+  Paper,
+  TableContainer,
+  Typography,
+} from "@material-ui/core";
 import useStocksListStyles from "../StockInfo/theme";
 import StockTable from "../../Components/StockTable/StockTable";
 
@@ -15,7 +20,7 @@ const tableTitles = [
 
 const StocksHistory: React.FC = () => {
   const classes = useStocksListStyles();
-  const [stocks, setStocks] = useState<any[]>([]);
+  const [stocks, setStocks] = useState<object[]>([]);
   const { request, loading } = useHttp();
   const { token } = useContext(AuthContext);
 
@@ -35,7 +40,12 @@ const StocksHistory: React.FC = () => {
   return (
     <Paper className={classes.paper}>
       <TableContainer component={Container}>
-        {!loading && stocks && (
+        {!loading && stocks.length === 0 && (
+          <Typography variant="h5" component="h6">
+            Пока нет акций! Добавьте их на странице добавления акций
+          </Typography>
+        )}
+        {!loading && stocks.length !== 0 && (
           <StockTable head={tableTitles} stocks={stocks} />
         )}
       </TableContainer>

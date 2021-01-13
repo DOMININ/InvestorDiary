@@ -5,6 +5,7 @@ import {
   MenuItem,
   Paper,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import {
   KeyboardDatePicker,
@@ -113,6 +114,9 @@ const NewStock: React.FC = () => {
   return (
     <Paper elevation={3} className={classes.paper}>
       <Container>
+        <Typography variant="h4" component="h5" className={classes.title}>
+          Добавление новой акции
+        </Typography>
         <div>
           <TextField
             helperText="Введите тикер. Пример: VTBE"

@@ -1,5 +1,10 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Container, Paper, TableContainer } from "@material-ui/core";
+import {
+  Container,
+  Paper,
+  TableContainer,
+  Typography,
+} from "@material-ui/core";
 import useStockInfoStyles from "./theme";
 import { useHttp } from "../../hooks/useHttp";
 import { AuthContext } from "../../context/AuthContext";
@@ -86,7 +91,14 @@ const StockInfo: React.FC = () => {
   return (
     <Paper className={classes.paper}>
       <TableContainer component={Container}>
-        {!loading && <StockTable head={tableTitles} stocks={stocks} />}
+        {!loading && stocks.length === 0 && (
+          <Typography variant="h5" component="h6">
+            Пока нет акций! Добавьте их на странице добавления акций
+          </Typography>
+        )}
+        {!loading && stocks.length !== 0 && (
+          <StockTable head={tableTitles} stocks={stocks} />
+        )}
       </TableContainer>
     </Paper>
   );
