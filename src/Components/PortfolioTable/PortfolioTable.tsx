@@ -12,7 +12,7 @@ type TableProps = {
   stocks: Object[];
 };
 
-const StockTable: React.FC<TableProps> = ({ head, stocks }) => {
+const PortfolioTable: React.FC<TableProps> = ({ head, stocks }) => {
   return (
     <Table aria-label="simple table">
       <TableHead>
@@ -31,11 +31,7 @@ const StockTable: React.FC<TableProps> = ({ head, stocks }) => {
             <TableCell component="th" scope="row">
               {row.name}
             </TableCell>
-            <TableCell align="center">{row.ticker}</TableCell>
-            <TableCell align="center">{row.qty}</TableCell>
             <TableCell align="center">{row.price}</TableCell>
-            <TableCell align="center">{row.currency}</TableCell>
-            {row.date && <TableCell align="center">{row.date}</TableCell>}
           </TableRow>
         ))}
       </TableBody>
@@ -43,4 +39,4 @@ const StockTable: React.FC<TableProps> = ({ head, stocks }) => {
   );
 };
 
-export default StockTable;
+export default PortfolioTable;

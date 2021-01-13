@@ -170,15 +170,6 @@ const HeaderAside: React.FC<IHeaderAsideProps> = ({ children }) => {
             </ListItem>
           </Link>
           <Divider />
-          <Link to="/info" className={classes.link} onClick={handleDrawerClose}>
-            <ListItem button>
-              <ListItemIcon>
-                <LibraryBooksIcon />
-              </ListItemIcon>
-              <ListItemText primary="Акции" />
-            </ListItem>
-          </Link>
-          <Divider />
           <Link
             to="/portfolio"
             className={classes.link}
@@ -189,6 +180,15 @@ const HeaderAside: React.FC<IHeaderAsideProps> = ({ children }) => {
                 <BusinessCenterIcon />
               </ListItemIcon>
               <ListItemText primary="Портфолио" />
+            </ListItem>
+          </Link>
+          <Divider />
+          <Link to="/info" className={classes.link} onClick={handleDrawerClose}>
+            <ListItem button>
+              <ListItemIcon>
+                <LibraryBooksIcon />
+              </ListItemIcon>
+              <ListItemText primary="Акции" />
             </ListItem>
           </Link>
           <Divider />
@@ -204,8 +204,8 @@ const HeaderAside: React.FC<IHeaderAsideProps> = ({ children }) => {
               <ListItemText primary="История" />
             </ListItem>
           </Link>
+          <Divider />
         </List>
-        <Divider />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />

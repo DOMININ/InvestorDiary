@@ -8,6 +8,9 @@ const useNewStockStyles = makeStyles(() => ({
     paddingTop: 20,
     paddingBottom: 20,
   },
+  title: {
+    marginBottom: 15,
+  },
   tickerField: {
     width: "20%",
     marginRight: 20,
