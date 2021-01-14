@@ -7,6 +7,7 @@ import Settings from "./pages/Settings/Settings";
 import NewStock from "./pages/NewStock/NewStock";
 import StocksHistory from "./pages/StocksHistory/StocksHistory";
 import StockInfo from "./pages/StockInfo/StockInfo";
+import Profit from "./pages/Profit/Profit";
 
 const useRoutes = (isAuthenticated: Boolean) => {
   if (isAuthenticated) {
@@ -16,6 +17,7 @@ const useRoutes = (isAuthenticated: Boolean) => {
         <Route path="/info" component={StockInfo} />
         <Route path="/portfolio" component={Portfolio} />
         <Route path="/history" component={StocksHistory} />
+        <Route path="/profit" component={Profit} />
         <Route path="/settings" component={Settings} />
         <Redirect to="/portfolio" />
       </Switch>

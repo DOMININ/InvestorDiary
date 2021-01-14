@@ -11,6 +11,7 @@ app.use(express.json({ extended: true }));
 
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/stock", require("./routes/stock.routes"));
+app.use("/api/profit", require("./routes/profit.routes"));
 
 const start = async () => {
   try {

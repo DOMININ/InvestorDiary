@@ -112,7 +112,7 @@ const NewStock: React.FC = () => {
   }, [ticker, stockName, currency, selectedDate]);
 
   return (
-    <Paper elevation={3} className={classes.paper}>
+    <Paper className={classes.paper}>
       <Container>
         <Typography variant="h4" component="h5" className={classes.title}>
           Добавление новой акции
