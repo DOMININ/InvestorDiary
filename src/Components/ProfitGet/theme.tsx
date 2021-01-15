@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-const useProfitStyles = makeStyles(() => ({
+const useProfitGetStyles = makeStyles(() => ({
   paper: {
     display: "flex",
     flexDirection: "column",
@@ -13,4 +13,4 @@ const useProfitStyles = makeStyles(() => ({
   },
 }));
 
-export default useProfitStyles;
+export default useProfitGetStyles;
