@@ -18,6 +18,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import { AccountCircle } from "@material-ui/icons";
 import { Menu, MenuItem } from "@material-ui/core";
@@ -202,6 +203,19 @@ const HeaderAside: React.FC<IHeaderAsideProps> = ({ children }) => {
                 <ListAltIcon />
               </ListItemIcon>
               <ListItemText primary="История" />
+            </ListItem>
+          </Link>
+          <Divider />
+          <Link
+            to="/profit"
+            className={classes.link}
+            onClick={handleDrawerClose}
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <MonetizationOnIcon />
+              </ListItemIcon>
+              <ListItemText primary="Доход" />
             </ListItem>
           </Link>
           <Divider />

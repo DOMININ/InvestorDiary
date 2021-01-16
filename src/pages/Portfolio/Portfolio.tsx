@@ -6,7 +6,7 @@ import { Container, Divider, Grid, Paper, Typography } from "@material-ui/core";
 import usePortfolioStyles from "./theme";
 import PortfolioTable from "../../Components/PortfolioTable/PortfolioTable";
 
-const tableTitles = ["Цена покупки"];
+const tableTitles = ["Общая сумма"];
 
 const Portfolio: React.FC = () => {
   const [stocks, setStocks] = useState<any[]>([]);
@@ -60,14 +60,21 @@ const Portfolio: React.FC = () => {
     fetchStocks();
   }, [fetchStocks]);
 
-  return (
-    <Paper className={classes.paper}>
-      <Container>
-        {!loading && stocks.length === 0 && (
+  if (!loading && stocks.length === 0) {
+    return (
+      <Paper className={classes.paper}>
+        <Container>
           <Typography variant="h5" component="h6">
             Пока нет акций! Добавьте их на странице добавления акций
           </Typography>
-        )}
+        </Container>
+      </Paper>
+    );
+  }
+
+  return (
+    <Paper className={classes.paper}>
+      <Container>
         {!loading && stocks.length !== 0 && (
           <>
             <Typography variant="h4" component="h5">

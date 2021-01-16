@@ -88,14 +88,21 @@ const StockInfo: React.FC = () => {
     fetchStocks();
   }, [fetchStocks]);
 
-  return (
-    <Paper className={classes.paper}>
-      <TableContainer component={Container}>
-        {!loading && stocks.length === 0 && (
+  if (!loading && stocks.length === 0) {
+    return (
+      <Paper className={classes.paper}>
+        <Container>
           <Typography variant="h5" component="h6">
             Пока нет акций! Добавьте их на странице добавления акций
           </Typography>
-        )}
+        </Container>
+      </Paper>
+    );
+  }
+
+  return (
+    <Paper className={classes.paper}>
+      <TableContainer component={Container}>
         {!loading && stocks.length !== 0 && (
           <StockTable head={tableTitles} stocks={stocks} />
         )}

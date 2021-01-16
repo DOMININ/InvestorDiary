@@ -4,6 +4,7 @@ const pageTitles: { [index: string]: any } = {
   new: "Новая акция",
   info: "Информация об акциях",
   history: "История покупок",
+  profit: "Доход",
 };
 
 export default pageTitles;
