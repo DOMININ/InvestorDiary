@@ -11,6 +11,10 @@ const useProfitGetStyles = makeStyles(() => ({
   title: {
     marginBottom: 15,
   },
+  container: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
 }));
 
 export default useProfitGetStyles;
