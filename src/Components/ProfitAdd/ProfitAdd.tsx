@@ -10,21 +10,32 @@ import {
 import useProfitAddStyles from "./theme";
 import { useHttp } from "../../hooks/useHttp";
 import { AuthContext } from "../../context/AuthContext";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import moment from "moment";
 
 interface IProfit {
   ticker: string;
   profit: number | null;
+  date: string;
 }
 
 const initialFormState: IProfit = {
   ticker: "",
   profit: null,
+  date: "",
 };
 
 const ProfitAdd: React.FC = () => {
   const classes = useProfitAddStyles();
   const [tickers, setTickers] = useState<string[]>([]);
   const [currentTicker, setCurrentTicker] = useState<string>("");
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
+    new Date()
+  );
   const [form, setForm] = useState<IProfit>(initialFormState);
   const { request, loading } = useHttp();
   const { token } = useContext(AuthContext);
@@ -57,6 +68,11 @@ const ProfitAdd: React.FC = () => {
     getTicket();
   }, [getTicket]);
 
+  const changeDateHandler = (date: Date | null) => {
+    setSelectedDate(date);
+    setForm({ ...form, date: moment(date).format("DD.MM.YYYY") });
+  };
+
   const changeTickerHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentTicker(e.target.value);
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -71,6 +87,7 @@ const ProfitAdd: React.FC = () => {
 
   const clearForm = () => {
     setCurrentTicker("");
+    setSelectedDate(new Date());
     setForm(initialFormState);
   };
 
@@ -133,6 +150,21 @@ const ProfitAdd: React.FC = () => {
             onChange={changeHandler}
             className={classes.margin}
           />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="dd.MM.yyyy"
+              margin="normal"
+              helperText="Выберите дату поступления"
+              name="date"
+              value={selectedDate}
+              onChange={changeDateHandler}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+          </MuiPickersUtilsProvider>
           <Button
             variant="contained"
             color="primary"
