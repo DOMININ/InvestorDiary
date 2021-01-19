@@ -35,6 +35,7 @@ const ProfitTable: React.FC<TableProps> = ({ head, stocks }) => {
               {row.ticker}
             </TableCell>
             <TableCell align="center">{row.profit}</TableCell>
+            <TableCell align="center">{row.date}</TableCell>
           </TableRow>
         ))}
       </TableBody>

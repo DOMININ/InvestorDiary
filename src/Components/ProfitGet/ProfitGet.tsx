@@ -10,7 +10,7 @@ import { useHttp } from "../../hooks/useHttp";
 import { AuthContext } from "../../context/AuthContext";
 import ProfitTable from "../ProfitTable/ProfitTable";
 
-const tableTitles = ["Дивиденды"];
+const tableTitles = ["Дивиденды", "Дата"];
 
 const ProfitAdd: React.FC = () => {
   const classes = useProfitGetStyles();
