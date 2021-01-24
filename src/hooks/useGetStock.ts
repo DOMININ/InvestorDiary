@@ -5,12 +5,12 @@ export const useGetStock = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [error, setError] = useState<null | []>(null);
 
-  const requestStockAPI = async (ticket: string) => {
+  const requestStockAPI = async (ticker: string) => {
     setLoading(true);
 
-    return await axios
-      .get(`https://iss.moex.com/iss/securities/${ticket}.json`)
-      .then((response: AxiosResponse) => {
+    const responseName = await axios
+      .get(`https://iss.moex.com/iss/securities/${ticker}.json`)
+      .then(async (response: AxiosResponse) => {
         setLoading(false);
         return response.data.description.data[1][2];
       })
@@ -21,6 +21,19 @@ export const useGetStock = () => {
           return error.response;
         }
       });
+
+    if (!responseName) {
+      return await axios
+        .get(
+          `http://api.marketstack.com/v1/tickers/${ticker}?access_key=4715cd6eeea3d584dbb0c4ecf62261ec`
+        )
+        .then((response: AxiosResponse) => {
+          setLoading(false);
+          return response.data.name;
+        });
+    }
+
+    return responseName;
   };
 
   return { loading, requestStockAPI, error };
