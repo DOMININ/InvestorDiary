@@ -35,7 +35,7 @@ const Portfolio: React.FC = () => {
           if (
             JSON.stringify(arrObj[i].ticker) === JSON.stringify(iterObj.ticker)
           ) {
-            arrObj[i].price += iterObj.price;
+            arrObj[i].price = +(arrObj[i].price + iterObj.price).toFixed(2);
             arrObj[i].qty += iterObj.qty;
           }
         }
