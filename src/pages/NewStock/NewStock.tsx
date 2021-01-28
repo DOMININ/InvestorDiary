@@ -58,6 +58,7 @@ const NewStock: React.FC = () => {
 
   const changeDateHandler = (date: Date | null) => {
     setSelectedDate(date);
+    setForm({ ...form, date: moment(date).format("DD.MM.YYYY") });
   };
 
   const changeCurrencyHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
