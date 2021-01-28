@@ -96,13 +96,12 @@ const ProfitAdd: React.FC = () => {
       await request(
         "POST",
         "api/profit/profit",
-        { ...form },
+        { ...form, date: moment(selectedDate).format("DD.MM.YYYY") },
         { authorization: `Bearer ${auth.token}` }
       );
     } catch (e) {}
 
     clearForm();
-    console.log(form);
   };
 
   if (!loading && tickers.length === 0) {
