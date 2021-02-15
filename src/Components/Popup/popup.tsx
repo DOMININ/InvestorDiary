@@ -28,7 +28,6 @@ const Popup: React.FC = () => {
             className={classes.typography}
           >
             Регистрация прошла успешно!
-            {/*TODO: удалить Router*/}
           </Typography>
           <Link to="/auth" className={classes.link}>
             Вернуться к авторизации
