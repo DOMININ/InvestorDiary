@@ -9,22 +9,43 @@ import useProfitGetStyles from "../ProfitGet/theme";
 import { useHttp } from "../../hooks/useHttp";
 import { AuthContext } from "../../context/AuthContext";
 import ProfitTable from "../ProfitTable/ProfitTable";
+import { currency } from "../../utils/currency.json";
 
-const tableTitles = ["Дивиденды", "Дата"];
+const tableTitles = ["Дивиденды", "Валюта", "Дата"];
+
+interface ICurrency {
+  [key: string]: number;
+  RUB: number;
+  USD: number;
+  EUR: number;
+  Other: number;
+}
 
 const ProfitAdd: React.FC = () => {
   const classes = useProfitGetStyles();
   const [stocks, setStocks] = useState<object[]>([]);
-  const [totalProfit, setTotalProfit] = useState(0);
+  const [totalProfit, setTotalProfit] = useState<ICurrency>({
+    RUB: 0,
+    USD: 0,
+    EUR: 0,
+    Other: 0,
+  });
   const { request, loading } = useHttp();
   const { token } = useContext(AuthContext);
 
   const sumTotalProfit = (stocks: any) => {
-    const total = stocks.reduce((acc: any, obj: any) => {
-      return acc + obj.profit;
-    }, 0);
+    let total: any = {};
+    currency.forEach((curr: any) => {
+      total[curr.type] = stocks.reduce((acc: any, obj: any) => {
+        if (curr.type === obj.type) {
+          return acc + obj.profit;
+        }
 
-    setTotalProfit(total);
+        return acc;
+      }, 0);
+
+      setTotalProfit({ ...total });
+    });
   };
 
   const getProfit = useCallback(async () => {
@@ -34,7 +55,6 @@ const ProfitAdd: React.FC = () => {
       });
 
       setStocks(fetched.data);
-
       sumTotalProfit(fetched.data);
     } catch (e) {}
   }, [token, request]);
@@ -67,9 +87,16 @@ const ProfitAdd: React.FC = () => {
               <ProfitTable head={tableTitles} stocks={stocks} />
             )}
           </TableContainer>
-          <Typography variant="h5" component="h6">
-            Итого: {totalProfit}
-          </Typography>
+          <div className={classes.result}>
+            <Typography variant="h5" component="h6">
+              Итого:
+            </Typography>
+            {Object.keys(totalProfit).map((currency: string) => (
+              <div key={currency}>
+                <b>{currency}:</b> {totalProfit[currency]}
+              </div>
+            ))}
+          </div>
         </div>
       </Container>
     </Paper>

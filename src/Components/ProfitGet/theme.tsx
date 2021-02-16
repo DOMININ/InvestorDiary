@@ -15,6 +15,10 @@ const useProfitGetStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "space-between",
   },
+  result: {
+    minWidth: "200px",
+    fontSize: "20px",
+  },
 }));
 
 export default useProfitGetStyles;

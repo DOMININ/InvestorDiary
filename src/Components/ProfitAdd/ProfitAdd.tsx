@@ -3,6 +3,7 @@ import {
   Button,
   Container,
   MenuItem,
+  NativeSelect,
   Paper,
   TextField,
   Typography,
@@ -16,16 +17,19 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import moment from "moment";
+import { currency } from "../../utils/currency.json";
 
 interface IProfit {
   ticker: string;
   profit: number | null;
+  type: string;
   date: string;
 }
 
 const initialFormState: IProfit = {
   ticker: "",
   profit: null,
+  type: "RUB",
   date: "",
 };
 
@@ -82,6 +86,15 @@ const ProfitAdd: React.FC = () => {
     setForm({
       ...form,
       [e.target.name]: +e.target.value,
+    });
+  };
+
+  const changeTypeHandler = (
+    e: React.ChangeEvent<{ name: string; value: unknown }>
+  ) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -149,6 +162,19 @@ const ProfitAdd: React.FC = () => {
             onChange={changeHandler}
             className={classes.margin}
           />
+          <NativeSelect
+            onChange={changeTypeHandler}
+            name="type"
+            inputProps={{ "aria-label": "type" }}
+          >
+            {currency.map((curr: any) => {
+              return (
+                <option key={curr.type} value={curr.type}>
+                  {curr.type}
+                </option>
+              );
+            })}
+          </NativeSelect>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               disableToolbar
