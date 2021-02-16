@@ -1,0 +1,16 @@
+{
+  "currency": [
+    {
+      "type": "RUB"
+    },
+    {
+      "type": "USD"
+    },
+    {
+      "type": "EUR"
+    },
+    {
+      "type": "Other"
+    }
+  ]
+}
